@@ -32,8 +32,18 @@ class MyApp extends StatelessWidget {
     );
 
     final lightTheme = ThemeData(
+      appBarTheme: AppBarTheme(
+        color: DeliveryColors.white,
+        textTheme: GoogleFonts.poppinsTextTheme().copyWith(
+          headline6: TextStyle(
+              fontSize: 20,
+              color: DeliveryColors.purple,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
       canvasColor: DeliveryColors.white,
       scaffoldBackgroundColor: DeliveryColors.white,
+      bottomAppBarColor: DeliveryColors.veryLightGrey,
       accentColor: DeliveryColors.purple,
       textTheme: GoogleFonts.poppinsTextTheme().apply(
         bodyColor: DeliveryColors.purple,
@@ -54,12 +64,24 @@ class MyApp extends StatelessWidget {
       iconTheme: IconThemeData(
         color: DeliveryColors.purple,
       ),
+      // cardTheme: CardTheme(
+      //   color: DeliveryColors.white,
+      // ),
     );
 
     final darkTheme = ThemeData(
-      appBarTheme: AppBarTheme(color: DeliveryColors.purple),
+      appBarTheme: AppBarTheme(
+        color: DeliveryColors.purple,
+        textTheme: GoogleFonts.poppinsTextTheme().copyWith(
+          headline6: TextStyle(
+              fontSize: 20,
+              color: DeliveryColors.white,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
       canvasColor: DeliveryColors.grey,
       scaffoldBackgroundColor: DeliveryColors.dark,
+      bottomAppBarColor: DeliveryColors.dark,
       accentColor: DeliveryColors.white,
       textTheme: GoogleFonts.poppinsTextTheme().apply(
         bodyColor: DeliveryColors.green,
@@ -81,6 +103,9 @@ class MyApp extends StatelessWidget {
       iconTheme: IconThemeData(
         color: DeliveryColors.white,
       ),
+      // cardTheme: CardTheme(
+      //   color: DeliveryColors.grey,
+      // ),
     );
     return MaterialApp(
       title: 'Flutter Demo',

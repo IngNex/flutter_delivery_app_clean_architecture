@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/home_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
+import 'package:flutter_delivery_app_clean_architecture/presentation/widgets/delivery_button.dart';
 
 const logoSize = 45.0;
 
@@ -126,7 +127,7 @@ class LoginScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(25),
-            child: InkWell(
+            child: DeliveryButton(
               onTap: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
@@ -134,23 +135,8 @@ class LoginScreen extends StatelessWidget {
                   ),
                 );
               },
-              child: Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.centerRight,
-                      end: Alignment.centerLeft,
-                      colors: deliveryGradients,
-                    ),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Text(
-                    'Login',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
+              text: 'Login',
+              padding: const EdgeInsets.all(15),
             ),
           ),
         ],
