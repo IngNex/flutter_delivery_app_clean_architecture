@@ -43,7 +43,7 @@ class _ItemProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 5,
+      elevation: 8,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Theme.of(context).canvasColor,
       child: Padding(
@@ -69,6 +69,7 @@ class _ItemProducts extends StatelessWidget {
               child: Column(
                 children: [
                   Text(product.name),
+                  const SizedBox(height: 10),
                   Text(product.description,
                       style: Theme.of(context)
                           .textTheme
