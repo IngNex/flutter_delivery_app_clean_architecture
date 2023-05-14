@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_delivery_app_clean_architecture/presentation/home/cart/cart_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/products/products_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
 
@@ -24,7 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               ProductsScreen(),
               Text('currentIndex 2 - $currentIndex'),
-              Text('currentIndex 3 - $currentIndex'),
+              CartScreen(
+                onShopping: (() {
+                  setState(() {
+                    currentIndex = 0;
+                  });
+                }),
+              ),
               Text('currentIndex 4 - $currentIndex'),
               Text('currentIndex 5 - $currentIndex')
             ],
