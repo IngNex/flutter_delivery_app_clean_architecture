@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/cart/cart_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/products/products_screen.dart';
+import 'package:flutter_delivery_app_clean_architecture/presentation/home/profile/profile_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -33,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }),
               ),
               Text('currentIndex 4 - $currentIndex'),
-              Text('currentIndex 5 - $currentIndex')
+              ProfileScreen()
             ],
           )),
           _DeliveryNavigationBar(
@@ -116,6 +117,7 @@ class _DeliveryNavigationBar extends StatelessWidget {
                   onTap: () => onIndexSelected(4),
                   child: CircleAvatar(
                     radius: 15,
+                    child: Image.asset('assets/images/ingnex.png'),
                     backgroundColor: index == 4
                         ? DeliveryColors.green
                         : DeliveryColors.lightGrey,
