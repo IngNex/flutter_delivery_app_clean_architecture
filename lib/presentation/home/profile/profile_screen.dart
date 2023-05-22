@@ -11,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
         title: const Center(
           child: Text('Profile'),
         ),
-        titleTextStyle: Theme.of(context).appBarTheme.textTheme?.headline6,
+        //titleTextStyle: Theme.of(context).appBarTheme.textTheme?.headline6,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -41,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                   'Michael Rodriguez Martinez',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).accentColor),
+                      color: Theme.of(context).colorScheme.secondary),
                 )
               ],
             ),
@@ -69,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
                             'Personal Information',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Theme.of(context).accentColor),
+                                color: Theme.of(context).colorScheme.secondary),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(
@@ -83,7 +83,7 @@ class ProfileScreen extends StatelessWidget {
                             'email@email.com',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Theme.of(context).accentColor),
+                                color: Theme.of(context).colorScheme.secondary),
                           ),
                           Row(
                             children: [

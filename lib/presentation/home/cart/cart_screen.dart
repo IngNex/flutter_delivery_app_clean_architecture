@@ -21,7 +21,7 @@ class CartScreen extends StatelessWidget {
         title: const Center(
           child: Text('Shopping Cart'),
         ),
-        titleTextStyle: Theme.of(context).appBarTheme.textTheme?.headline6,
+        //titleTextStyle: Theme.of(context).appBarTheme.textTheme?.headline6,
       ),
       body: _FullCart(),
     );
@@ -76,17 +76,23 @@ class _FullCart extends StatelessWidget {
                           children: [
                             Text(
                               'SubTotal',
-                              style:
-                                  Theme.of(context).textTheme.caption?.copyWith(
-                                        color: Theme.of(context).accentColor,
-                                      ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption
+                                  ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                  ),
                             ),
                             Text(
                               '0.0 USD',
-                              style:
-                                  Theme.of(context).textTheme.caption?.copyWith(
-                                        color: Theme.of(context).accentColor,
-                                      ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption
+                                  ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                  ),
                             )
                           ],
                         ),
@@ -95,17 +101,23 @@ class _FullCart extends StatelessWidget {
                           children: [
                             Text(
                               'Deivery',
-                              style:
-                                  Theme.of(context).textTheme.caption?.copyWith(
-                                        color: Theme.of(context).accentColor,
-                                      ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption
+                                  ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                  ),
                             ),
                             Text(
                               'Free',
-                              style:
-                                  Theme.of(context).textTheme.caption?.copyWith(
-                                        color: Theme.of(context).accentColor,
-                                      ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption
+                                  ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                  ),
                             )
                           ],
                         ),
@@ -119,13 +131,15 @@ class _FullCart extends StatelessWidget {
                               'Total',
                               style: TextStyle(
                                   fontSize: 20,
-                                  color: Theme.of(context).accentColor),
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
                             ),
                             Text(
                               '\$50.00 USD',
                               style: TextStyle(
                                   fontSize: 20,
-                                  color: Theme.of(context).accentColor),
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
                             )
                           ],
                         ),
@@ -294,7 +308,7 @@ class _EmptyCart extends StatelessWidget {
         Text(
           'There are no products',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Theme.of(context).accentColor),
+          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
         ),
         const SizedBox(height: 20),
         Center(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/data/products/in_memory_products_data.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/model/products_model.dart';
-import 'package:flutter_delivery_app_clean_architecture/presentation/home/home_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/widgets/delivery_button.dart';
 
@@ -15,7 +14,7 @@ class ProductsScreen extends StatelessWidget {
         title: const Center(
           child: Text('Inicio'),
         ),
-        titleTextStyle: Theme.of(context).appBarTheme.textTheme?.headline6,
+        //titleTextStyle: Theme.of(context).appBarTheme.textTheme?.headline6,
       ),
       body: GridView.builder(
         padding: EdgeInsets.all(20),
@@ -82,7 +81,8 @@ class _ItemProducts extends StatelessWidget {
                   ),
                   Text(
                     '\$${product.price} USD',
-                    style: TextStyle(color: Theme.of(context).accentColor),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary),
                   ),
                 ],
               ),

@@ -54,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       child: Image.asset(
                         'assets/icons/ingnex.png',
-                        color: Theme.of(context).accentColor,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
                   ),
