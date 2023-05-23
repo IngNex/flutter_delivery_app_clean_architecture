@@ -7,5 +7,5 @@ abstract class LocalRepositoryInterface {
   Future<User> saveUser(User user);
   Future<User> getUser();
   Future<void> saveDarkMode(bool darkMode);
-  Future<bool> isDarkMode();
+  Future<bool?> isDarkMode();
 }

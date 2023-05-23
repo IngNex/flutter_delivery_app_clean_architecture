@@ -19,13 +19,13 @@ class LocalRepositoryImpl extends LocalRepositoryInterface {
   }
 
   @override
-  Future<String> getToken() async {
+  Future<String?> getToken() async {
     final SharedPreferences sharedPreference = await _sharedPreference;
-    return sharedPreference.getString(_pref_token) ?? '';
+    return sharedPreference.getString(_pref_token);
   }
 
   @override
-  Future<String> saveToken(String token) async {
+  Future<String?> saveToken(String token) async {
     final SharedPreferences sharedPreference = await _sharedPreference;
     sharedPreference.setString(_pref_token, token);
 
@@ -55,9 +55,9 @@ class LocalRepositoryImpl extends LocalRepositoryInterface {
   }
 
   @override
-  Future<bool> isDarkMode() async {
-    final SharedPreferences sharedPreference = await _sharedPreference;
-    return sharedPreference.getBool(_pref_dark_theme) ?? false;
+  Future<bool?> isDarkMode() async {
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+    return sharedPreference.getBool(_pref_dark_theme);
   }
 
   @override
