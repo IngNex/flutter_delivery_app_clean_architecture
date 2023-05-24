@@ -53,7 +53,7 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
 
   @override
   Future<void> logout(String token) async {
-    print('removing token from server');
+    print('removing token from server $token');
     return;
   }
 

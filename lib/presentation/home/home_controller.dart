@@ -13,10 +13,12 @@ class HomeController extends GetxController {
 
   Rx<User> user = User.empty().obs;
   RxInt indexSelected = 0.obs;
+  RxBool darkTheme = false.obs;
 
   @override
   void onReady() {
     loadUser();
+    loadCurrentTheme();
     super.onReady();
   }
 
@@ -28,7 +30,28 @@ class HomeController extends GetxController {
         );
   }
 
+  void loadCurrentTheme() {
+    localRepositoryInterface.isDarkMode().then(
+          (value) => {
+            darkTheme(value),
+          },
+        );
+  }
+
+  bool updateTheme(bool isDark) {
+    localRepositoryInterface.saveDarkMode(isDark);
+    darkTheme(isDark);
+    return isDark;
+  }
+
   void updateIndexSelected(int index) {
     indexSelected(index);
+  }
+
+  // Bottom LogOut
+  Future<void> logOut() async {
+    final token = await localRepositoryInterface.getToken();
+    await apiRepositoryInterface.logout(token.toString());
+    await localRepositoryInterface.clearAllData();
   }
 }
