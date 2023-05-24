@@ -1,11 +1,11 @@
-import 'package:flutter_delivery_app_clean_architecture/presentation/splash/spash_controller.dart';
+import 'package:flutter_delivery_app_clean_architecture/presentation/login/login_controller.dart';
 import 'package:get/get.dart';
 
-class SplashBinding extends Bindings {
+class LoginBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(
-      () => SplashController(
+      () => LoginController(
           localRepositoryInterface: Get.find(),
           apiRepositoryInterface: Get.find()),
     );

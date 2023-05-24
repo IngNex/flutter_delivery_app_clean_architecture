@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/home_screen.dart';
+import 'package:flutter_delivery_app_clean_architecture/presentation/login/login_controller.dart';
+import 'package:flutter_delivery_app_clean_architecture/presentation/routes/delivery_navigation.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/widgets/delivery_button.dart';
+import 'package:get/get.dart';
 
 const logoSize = 45.0;
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends GetWidget<LoginController> {
   const LoginScreen({super.key});
+
+  void login() async {
+    final result = await controller.login();
+
+    print('result ${result}');
+
+    if (result) {
+      Get.snackbar('Correct', 'Welcome Delivery!!!');
+      Get.offAllNamed(DeliveryRoutes.home);
+    } else {
+      Get.snackbar('Error', 'Login incorrect');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,129 +32,150 @@ class LoginScreen extends StatelessWidget {
     final moreSize = 50.0;
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Stack(
         children: [
-          Expanded(
-            flex: 2,
-            child: Stack(
-              children: [
-                Positioned(
-                  bottom: logoSize,
-                  left: -moreSize / 2,
-                  right: -moreSize / 2,
-                  height: width + moreSize,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: deliveryGradients,
-                        stops: [
-                          0.5,
-                          1.0,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      bottom: logoSize,
+                      left: -moreSize / 2,
+                      right: -moreSize / 2,
+                      height: width + moreSize,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: deliveryGradients,
+                            stops: [
+                              0.5,
+                              1.0,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.vertical(
+                            bottom: Radius.circular(width),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: CircleAvatar(
+                        radius: logoSize,
+                        backgroundColor: Theme.of(context).canvasColor,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Image.asset(
+                            'assets/icons/ingnex.png',
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 4,
+                child: Container(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const SizedBox(height: 20),
+                          Text(
+                            'Login',
+                            style:
+                                Theme.of(context).textTheme.headline6?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 50),
+                          Text(
+                            'Username',
+                            textAlign: TextAlign.start,
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption
+                                ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context)
+                                        .inputDecorationTheme
+                                        .labelStyle
+                                        ?.color),
+                          ),
+                          TextField(
+                            controller: controller.usernameTextController,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.person_outline,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
+                              hintText: 'username',
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            'Password',
+                            textAlign: TextAlign.start,
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption
+                                ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context)
+                                        .inputDecorationTheme
+                                        .labelStyle
+                                        ?.color),
+                          ),
+                          TextField(
+                            controller: controller.passwordTextController,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.person_outline,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
+                              hintText: 'password',
+                            ),
+                          ),
                         ],
                       ),
-                      borderRadius: BorderRadius.vertical(
-                        bottom: Radius.circular(width),
-                      ),
                     ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: CircleAvatar(
-                    radius: logoSize,
-                    backgroundColor: Theme.of(context).canvasColor,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Image.asset(
-                        'assets/icons/ingnex.png',
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Container(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(height: 20),
-                      Text(
-                        'Login',
-                        style: Theme.of(context).textTheme.headline6?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 50),
-                      Text(
-                        'Username',
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.caption?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context)
-                                .inputDecorationTheme
-                                .labelStyle
-                                ?.color),
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.person_outline,
-                            color: Theme.of(context).iconTheme.color,
-                          ),
-                          hintText: 'username',
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        'Password',
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.caption?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context)
-                                .inputDecorationTheme
-                                .labelStyle
-                                ?.color),
-                      ),
-                      TextField(
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.person_outline,
-                            color: Theme.of(context).iconTheme.color,
-                          ),
-                          hintText: 'password',
-                        ),
-                      ),
-                    ],
                   ),
                 ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.all(25),
+                child: DeliveryButton(
+                  onTap: login,
+                  text: 'Login',
+                  padding: const EdgeInsets.all(15),
+                ),
+              ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(25),
-            child: DeliveryButton(
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (_) => HomeScreen(),
+          Positioned.fill(child: Obx(
+            () {
+              if (controller.loginState.value == LoginState.loading) {
+                return Container(
+                  color: Colors.black26,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
                   ),
                 );
-              },
-              text: 'Login',
-              padding: const EdgeInsets.all(15),
-            ),
-          ),
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
+          )),
         ],
       ),
     );

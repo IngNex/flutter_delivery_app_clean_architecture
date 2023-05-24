@@ -1,4 +1,5 @@
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/home_screen.dart';
+import 'package:flutter_delivery_app_clean_architecture/presentation/login/login_binding.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/login/login_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/splash/splash_binding.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/splash/splash_screen.dart';
@@ -15,17 +16,16 @@ class DeliveryPages {
     GetPage(
       name: DeliveryRoutes.splash,
       page: () => SplashScreen(),
+      // Inyecta
       binding: SplashBinding(),
     ),
     GetPage(
-      name: DeliveryRoutes.login,
-      page: () => LoginScreen(),
-      binding: SplashBinding(),
-    ),
+        name: DeliveryRoutes.login,
+        page: () => LoginScreen(),
+        binding: LoginBinding()),
     GetPage(
       name: DeliveryRoutes.home,
       page: () => HomeScreen(),
-      binding: SplashBinding(),
     ),
   ];
 }

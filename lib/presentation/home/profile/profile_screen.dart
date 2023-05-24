@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_delivery_app_clean_architecture/data/datasource/local_repository_impl.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -101,7 +102,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Center(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      LocalRepositoryImpl().clearAllData();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: DeliveryColors.purple,
                       shape: RoundedRectangleBorder(

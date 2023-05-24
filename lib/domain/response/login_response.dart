@@ -3,7 +3,7 @@ import 'package:flutter_delivery_app_clean_architecture/domain/model/user_modal.
 class LoginResponse {
   final String token;
   final User user;
-  LoginResponse({
+  const LoginResponse({
     required this.token,
     required this.user,
   });
