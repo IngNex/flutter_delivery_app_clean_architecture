@@ -1,4 +1,6 @@
+import 'package:flutter_delivery_app_clean_architecture/data/products/in_memory_products_data.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/exception/auth_exception.dart';
+import 'package:flutter_delivery_app_clean_architecture/domain/model/products_model.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/model/user_modal.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/repository/api_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/request/login_request.dart';
@@ -53,5 +55,11 @@ class ApiRepositoryImpl extends ApiRepositoryInterface {
   Future<void> logout(String token) async {
     print('removing token from server');
     return;
+  }
+
+  @override
+  Future<List<Products>> getProducts() async {
+    await Future.delayed(const Duration(seconds: 1));
+    return products;
   }
 }

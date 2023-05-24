@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_delivery_app_clean_architecture/presentation/home/home_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/login/login_controller.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/routes/delivery_navigation.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';

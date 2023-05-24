@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/exception/auth_exception.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/repository/api_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/repository/local_storage_repository.dart';

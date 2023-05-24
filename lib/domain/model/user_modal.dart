@@ -7,4 +7,7 @@ class User {
     required this.username,
     required this.image,
   });
+
+  factory User.empty() =>
+      User(name: '', username: '', image: 'assets/delivery/sad.png');
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/main_binding.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/routes/delivery_navigation.dart';
-import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
 void main() {

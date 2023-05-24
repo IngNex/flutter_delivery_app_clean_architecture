@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/cart/cart_screen.dart';
+import 'package:flutter_delivery_app_clean_architecture/presentation/home/home_controller.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/products/products_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/profile/profile_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
+import 'package:get/get.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 0;
-
+class HomeScreen extends GetWidget<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,31 +14,37 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-              child: IndexedStack(
-            index: currentIndex,
-            children: [
-              ProductsScreen(),
-              Text('currentIndex 2 - $currentIndex'),
-              CartScreen(
-                onShopping: (() {
-                  setState(() {
-                    currentIndex = 0;
-                  });
-                }),
+            child: Obx(
+              () => IndexedStack(
+                index: controller.indexSelected.value,
+                children: [
+                  ProductsScreen(),
+                  const Placeholder(),
+                  CartScreen(
+                    onShopping: (() {
+                      /*setState(() {
+                      currentIndex = 0;
+                    });*/
+                    }),
+                  ),
+                  const Placeholder(),
+                  ProfileScreen(),
+                ],
               ),
-              Text('currentIndex 4 - $currentIndex'),
-              ProfileScreen()
-            ],
-          )),
-          _DeliveryNavigationBar(
-            index: currentIndex,
-            onIndexSelected: (index) {
-              setState(
-                () {
-                  currentIndex = index;
-                },
-              );
-            },
+            ),
+          ),
+          Obx(
+            () => _DeliveryNavigationBar(
+              index: controller.indexSelected.value,
+              onIndexSelected: (index) {
+                controller.updateIndexSelected(index);
+                /*setState(
+                  () {
+                    currentIndex = index;
+                  },
+                );*/
+              },
+            ),
           )
         ],
       ),
@@ -56,7 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
 class _DeliveryNavigationBar extends StatelessWidget {
   final int index;
   final ValueChanged<int> onIndexSelected;
-  const _DeliveryNavigationBar(
+  final controller = Get.find<HomeController>();
+  _DeliveryNavigationBar(
       {super.key, required this.index, required this.onIndexSelected});
   @override
   Widget build(BuildContext context) {
@@ -115,12 +115,16 @@ class _DeliveryNavigationBar extends StatelessWidget {
               Material(
                 child: InkWell(
                   onTap: () => onIndexSelected(4),
-                  child: CircleAvatar(
-                    radius: 15,
-                    child: Image.asset('assets/images/ingnex.png'),
-                    backgroundColor: index == 4
-                        ? DeliveryColors.green
-                        : DeliveryColors.lightGrey,
+                  child: Obx(
+                    () {
+                      final user = controller.user.value;
+                      return user.image == null
+                          ? const SizedBox.shrink()
+                          : CircleAvatar(
+                              radius: 15,
+                              backgroundImage: AssetImage(user.image),
+                            );
+                    },
                   ),
                 ),
               )
