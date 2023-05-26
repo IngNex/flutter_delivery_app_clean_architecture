@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/data/products/in_memory_products_data.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/model/products_model.dart';
+import 'package:flutter_delivery_app_clean_architecture/presentation/home/products/products_controller.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/widgets/delivery_button.dart';
+import 'package:get/get.dart';
 
 class ProductsScreen extends StatelessWidget {
-  const ProductsScreen({super.key});
+  ProductsScreen({super.key});
+
+  final controller = Get.put<ProductsController>(
+      ProductsController(apiRepositoryInterface: Get.find()));
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +21,24 @@ class ProductsScreen extends StatelessWidget {
         ),
         //titleTextStyle: Theme.of(context).appBarTheme.textTheme?.headline6,
       ),
-      body: GridView.builder(
-        padding: EdgeInsets.all(20),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 2 / 3,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10),
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          final product = products[index];
-          return _ItemProducts(product: product);
-        },
+      body: Obx(
+        () => controller.productList.isNotEmpty
+            ? GridView.builder(
+                padding: EdgeInsets.all(20),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 2 / 3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10),
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  final product = products[index];
+                  return _ItemProducts(product: product);
+                },
+              )
+            : Center(
+                child: CircularProgressIndicator(),
+              ),
       ),
     );
   }
