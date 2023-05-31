@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_delivery_app_clean_architecture/data/products/in_memory_products_data.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/model/products_model.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/products/products_controller.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
@@ -7,10 +6,11 @@ import 'package:flutter_delivery_app_clean_architecture/presentation/widgets/del
 import 'package:get/get.dart';
 
 class ProductsScreen extends StatelessWidget {
-  ProductsScreen({super.key});
-
   final controller = Get.put<ProductsController>(
-      ProductsController(apiRepositoryInterface: Get.find()));
+    ProductsController(
+      apiRepositoryInterface: Get.find(),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +30,9 @@ class ProductsScreen extends StatelessWidget {
                     childAspectRatio: 2 / 3,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10),
-                itemCount: products.length,
+                itemCount: controller.productList.length,
                 itemBuilder: (context, index) {
-                  final product = products[index];
+                  final product = controller.productList[index];
                   return _ItemProducts(product: product);
                 },
               )

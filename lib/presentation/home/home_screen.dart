@@ -19,7 +19,7 @@ class HomeScreen extends GetWidget<HomeController> {
                 index: controller.indexSelected.value,
                 children: [
                   ProductsScreen(),
-                  const Placeholder(),
+                  Placeholder(),
                   CartScreen(
                     onShopping: (() {
                       /*setState(() {
@@ -27,7 +27,7 @@ class HomeScreen extends GetWidget<HomeController> {
                     });*/
                     }),
                   ),
-                  const Placeholder(),
+                  Placeholder(),
                   ProfileScreen(),
                 ],
               ),
