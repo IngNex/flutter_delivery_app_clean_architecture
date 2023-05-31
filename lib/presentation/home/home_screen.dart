@@ -38,11 +38,6 @@ class HomeScreen extends GetWidget<HomeController> {
               index: controller.indexSelected.value,
               onIndexSelected: (index) {
                 controller.updateIndexSelected(index);
-                /*setState(
-                  () {
-                    currentIndex = index;
-                  },
-                );*/
               },
             ),
           )

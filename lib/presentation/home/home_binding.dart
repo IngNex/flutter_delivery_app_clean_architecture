@@ -6,8 +6,9 @@ class HomeBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(
       () => HomeController(
-          localRepositoryInterface: Get.find(),
-          apiRepositoryInterface: Get.find()),
+        localRepositoryInterface: Get.find(),
+        apiRepositoryInterface: Get.find(),
+      ),
     );
   }
 }

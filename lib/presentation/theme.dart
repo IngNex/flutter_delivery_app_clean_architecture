@@ -34,7 +34,7 @@ final _borderDark = OutlineInputBorder(
   ),
 );
 
-final lightTheme = ThemeData(
+ThemeData lightTheme = ThemeData(
   appBarTheme: AppBarTheme(
     color: DeliveryColors.white,
     titleTextStyle: TextStyle(
@@ -76,7 +76,7 @@ final lightTheme = ThemeData(
   // ),
 );
 
-final darkTheme = ThemeData(
+ThemeData darkTheme = ThemeData(
   appBarTheme: AppBarTheme(
       color: DeliveryColors.purple,
       titleTextStyle: TextStyle(

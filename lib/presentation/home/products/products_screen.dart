@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/model/products_model.dart';
+import 'package:flutter_delivery_app_clean_architecture/presentation/home/home_controller.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/products/products_controller.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/widgets/delivery_button.dart';
 import 'package:get/get.dart';
 
 class ProductsScreen extends StatelessWidget {
-  final controller = Get.put<ProductsController>(
-    ProductsController(
-      apiRepositoryInterface: Get.find(),
-    ),
-  );
+  final controller = Get.find<HomeController>();
+
+  // final controller = Get.put<ProductsController>(
+  //   ProductsController(
+  //     apiRepositoryInterface: Get.find(),
+  //   ),
+  // );
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class ProductsScreen extends StatelessWidget {
 }
 
 class _ItemProducts extends StatelessWidget {
-  const _ItemProducts({
+  _ItemProducts({
     Key? key,
     required this.product,
   }) : super(key: key);

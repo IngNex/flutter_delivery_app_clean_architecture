@@ -5,16 +5,17 @@ import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart'
 import 'package:get/get.dart';
 
 class ProfileScreen extends StatelessWidget {
+  ProfileScreen({super.key});
   final controller = Get.find<HomeController>();
-
   Future<void> logout() async {
     await controller.logOut();
     Get.offAllNamed(DeliveryRoutes.splash);
+    Get.changeThemeMode(ThemeMode.light);
   }
 
   void onThemeUpdated(bool isDark) {
     controller.updateTheme(isDark);
-    Get.changeTheme(isDark ? darkTheme : lightTheme);
+    Get.changeThemeMode(isDark ? ThemeMode.dark : ThemeMode.light);
   }
 
   @override
@@ -28,7 +29,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             //titleTextStyle: Theme.of(context).appBarTheme.textTheme?.headline6,
           ),
-          body: user.image != null
+          body: user.image.isNotEmpty
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [

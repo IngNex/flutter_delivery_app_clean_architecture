@@ -1,6 +1,8 @@
+import 'package:flutter_delivery_app_clean_architecture/domain/model/products_model.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/model/user_modal.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/repository/api_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/repository/local_storage_repository.dart';
+import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -13,11 +15,15 @@ class HomeController extends GetxController {
 
   Rx<User> user = User.empty().obs;
   RxInt indexSelected = 0.obs;
-  RxBool darkTheme = false.obs;
+  Rx<bool> darkTheme = false.obs;
+
+  /* Products */
+  RxList<Products> productList = <Products>[].obs;
 
   @override
   void onReady() {
     loadUser();
+    loadProducts();
     loadCurrentTheme();
     super.onReady();
   }
@@ -31,11 +37,7 @@ class HomeController extends GetxController {
   }
 
   void loadCurrentTheme() {
-    localRepositoryInterface.isDarkMode().then(
-          (value) => {
-            darkTheme(value),
-          },
-        );
+    localRepositoryInterface.isDarkMode().then((value) => darkTheme(value));
   }
 
   bool updateTheme(bool isDark) {
@@ -53,5 +55,11 @@ class HomeController extends GetxController {
     final token = await localRepositoryInterface.getToken();
     await apiRepositoryInterface.logout(token.toString());
     await localRepositoryInterface.clearAllData();
+  }
+
+  /*===================  Product Controller ====================*/
+  void loadProducts() async {
+    final result = await apiRepositoryInterface.getProducts();
+    productList.value = result;
   }
 }
