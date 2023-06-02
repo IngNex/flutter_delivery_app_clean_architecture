@@ -41,7 +41,7 @@ class ProductsScreen extends StatelessWidget {
                   return _ItemProducts(
                     product: product,
                     onTap: () {
-                      cartController.increment(product);
+                      cartController.add(product);
                     },
                   );
                 },

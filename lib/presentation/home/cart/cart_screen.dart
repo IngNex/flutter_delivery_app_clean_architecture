@@ -58,10 +58,10 @@ class _FullCart extends GetWidget<CartController> {
                           controller.deleteProduct(productCart);
                         },
                         onIncrement: () {
-                          controller.increment(productCart.product);
+                          controller.increment(productCart);
                         },
                         onDecrement: () {
-                          controller.decrement(productCart.product);
+                          controller.decrement(productCart);
                         });
                   }),
                 ),
@@ -146,13 +146,18 @@ class _FullCart extends GetWidget<CartController> {
                                   color:
                                       Theme.of(context).colorScheme.secondary),
                             ),
-                            Text(
-                              '\$50.00 USD',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary),
-                            )
+                            Obx(() {
+                              final total = controller.totalPrice.value
+                                  .toStringAsFixed(2);
+                              return Text(
+                                '\$${total} USD',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary),
+                              );
+                            })
                           ],
                         ),
                       ],
@@ -241,7 +246,7 @@ class _ShoppingCartProducts extends StatelessWidget {
                           child: Row(
                             children: [
                               InkWell(
-                                onTap: (() {}),
+                                onTap: onDecrement,
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
@@ -259,7 +264,7 @@ class _ShoppingCartProducts extends StatelessWidget {
                                 child: Text(productCart.quantity.toString()),
                               ),
                               InkWell(
-                                onTap: (() {}),
+                                onTap: onIncrement,
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
@@ -289,7 +294,7 @@ class _ShoppingCartProducts extends StatelessWidget {
           Positioned(
             right: 0,
             child: InkWell(
-              onTap: () {},
+              onTap: onDelete,
               child: CircleAvatar(
                 backgroundColor: DeliveryColors.pink,
                 child: Icon(
