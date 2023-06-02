@@ -1,13 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_delivery_app_clean_architecture/data/products/in_memory_products_data.dart';
-import 'package:flutter_delivery_app_clean_architecture/domain/model/products_model.dart';
+import 'package:get/get.dart';
 
+import 'package:flutter_delivery_app_clean_architecture/domain/model/product_card_model.dart';
+import 'package:flutter_delivery_app_clean_architecture/presentation/home/cart/cart_controller.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/widgets/delivery_button.dart';
 
-class CartScreen extends StatelessWidget {
-  const CartScreen({
+class CartScreen extends GetWidget<CartController> {
+  CartScreen({
     Key? key,
     required this.onShopping,
   }) : super(key: key);
@@ -23,12 +24,14 @@ class CartScreen extends StatelessWidget {
         ),
         //titleTextStyle: Theme.of(context).appBarTheme.textTheme?.headline6,
       ),
-      body: _FullCart(),
+      body: Obx(() => controller.totalItems.value == 0
+          ? _EmptyCart(onShopping: onShopping)
+          : _FullCart()),
     );
   }
 }
 
-class _FullCart extends StatelessWidget {
+class _FullCart extends GetWidget<CartController> {
   const _FullCart({
     Key? key,
   }) : super(key: key);
@@ -41,19 +44,28 @@ class _FullCart extends StatelessWidget {
         Expanded(
           flex: 3,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: products.length,
-              itemExtent: 230,
-              itemBuilder: ((context, index) {
-                final product = products[index];
-                return _ShoppingCartProducts(
-                  product: product,
-                );
-              }),
-            ),
-          ),
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Obx(
+                () => ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: controller.cartList.length,
+                  itemExtent: 230,
+                  itemBuilder: ((context, index) {
+                    final productCart = controller.cartList[index];
+                    return _ShoppingCartProducts(
+                        productCart: productCart,
+                        onDelete: () {
+                          controller.deleteProduct(productCart);
+                        },
+                        onIncrement: () {
+                          controller.increment(productCart.product);
+                        },
+                        onDecrement: () {
+                          controller.decrement(productCart.product);
+                        });
+                  }),
+                ),
+              )),
         ),
         Expanded(
           flex: 3,
@@ -164,11 +176,19 @@ class _FullCart extends StatelessWidget {
 class _ShoppingCartProducts extends StatelessWidget {
   const _ShoppingCartProducts({
     Key? key,
-    required this.product,
+    required this.productCart,
+    required this.onDelete,
+    required this.onIncrement,
+    required this.onDecrement,
   }) : super(key: key);
-  final Products product;
+  final ProductCart productCart;
+  final VoidCallback onDelete;
+  final VoidCallback onIncrement;
+  final VoidCallback onDecrement;
+
   @override
   Widget build(BuildContext context) {
+    final product = productCart.product;
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Stack(
@@ -236,7 +256,7 @@ class _ShoppingCartProducts extends StatelessWidget {
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 8),
-                                child: Text('4'),
+                                child: Text(productCart.quantity.toString()),
                               ),
                               InkWell(
                                 onTap: (() {}),

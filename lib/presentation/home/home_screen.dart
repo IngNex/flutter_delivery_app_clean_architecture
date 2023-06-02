@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_delivery_app_clean_architecture/presentation/home/cart/cart_controller.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/cart/cart_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/home_controller.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/products/products_screen.dart';
@@ -25,6 +26,7 @@ class HomeScreen extends GetWidget<HomeController> {
                       /*setState(() {
                       currentIndex = 0;
                     });*/
+                      controller.indexSelected.value = 0;
                     }),
                   ),
                   Placeholder(),
@@ -51,6 +53,8 @@ class _DeliveryNavigationBar extends StatelessWidget {
   final int index;
   final ValueChanged<int> onIndexSelected;
   final controller = Get.find<HomeController>();
+  final cartController = Get.find<CartController>();
+
   _DeliveryNavigationBar(
       {super.key, required this.index, required this.onIndexSelected});
   @override
@@ -86,16 +90,32 @@ class _DeliveryNavigationBar extends StatelessWidget {
                 ),
               ),
               Material(
-                child: CircleAvatar(
-                  backgroundColor: DeliveryColors.purple,
-                  radius: 23,
-                  child: IconButton(
-                    onPressed: () => onIndexSelected(2),
-                    icon: Icon(Icons.shopping_basket),
-                    color: index == 2
-                        ? DeliveryColors.green
-                        : DeliveryColors.white,
-                  ),
+                child: Stack(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: DeliveryColors.purple,
+                      radius: 23,
+                      child: IconButton(
+                        onPressed: () => onIndexSelected(2),
+                        icon: Icon(Icons.shopping_basket),
+                        color: index == 2
+                            ? DeliveryColors.green
+                            : DeliveryColors.white,
+                      ),
+                    ),
+                    Positioned(
+                        right: 0,
+                        child: Obx(
+                          () => cartController.totalItems.value == 0
+                              ? const SizedBox.shrink()
+                              : CircleAvatar(
+                                  radius: 10,
+                                  backgroundColor: Colors.pinkAccent,
+                                  child: Text(cartController.totalItems.value
+                                      .toString()),
+                                ),
+                        ))
+                  ],
                 ),
               ),
               Material(
@@ -113,7 +133,7 @@ class _DeliveryNavigationBar extends StatelessWidget {
                   child: Obx(
                     () {
                       final user = controller.user.value;
-                      return user.image == null
+                      return user.image.isEmpty
                           ? const SizedBox.shrink()
                           : CircleAvatar(
                               radius: 15,

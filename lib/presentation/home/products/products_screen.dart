@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/model/products_model.dart';
+import 'package:flutter_delivery_app_clean_architecture/presentation/home/cart/cart_controller.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/home/home_controller.dart';
-import 'package:flutter_delivery_app_clean_architecture/presentation/home/products/products_controller.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/widgets/delivery_button.dart';
 import 'package:get/get.dart';
 
 class ProductsScreen extends StatelessWidget {
+  ProductsScreen({super.key});
   final controller = Get.find<HomeController>();
+  final cartController = Get.find<CartController>();
 
   // final controller = Get.put<ProductsController>(
   //   ProductsController(
@@ -36,7 +38,12 @@ class ProductsScreen extends StatelessWidget {
                 itemCount: controller.productList.length,
                 itemBuilder: (context, index) {
                   final product = controller.productList[index];
-                  return _ItemProducts(product: product);
+                  return _ItemProducts(
+                    product: product,
+                    onTap: () {
+                      cartController.increment(product);
+                    },
+                  );
                 },
               )
             : Center(
@@ -51,8 +58,10 @@ class _ItemProducts extends StatelessWidget {
   _ItemProducts({
     Key? key,
     required this.product,
+    required this.onTap,
   }) : super(key: key);
   final Products product;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -102,7 +111,7 @@ class _ItemProducts extends StatelessWidget {
               ),
             ),
             DeliveryButton(
-              onTap: () {},
+              onTap: onTap,
               text: 'Add',
               padding: const EdgeInsets.symmetric(vertical: 5),
             )

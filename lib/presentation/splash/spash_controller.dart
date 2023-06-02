@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/presentation/routes/delivery_navigation.dart';
-import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
 import 'package:get/get.dart';
-
 import 'package:flutter_delivery_app_clean_architecture/domain/repository/api_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/repository/local_storage_repository.dart';
 
@@ -17,7 +15,7 @@ class SplashController extends GetxController {
 
   @override
   void onInit() {
-    //validateTheme();
+    validateTheme();
     super.onInit();
   }
 
@@ -27,15 +25,15 @@ class SplashController extends GetxController {
     super.onReady();
   }
 
-  // void validateTheme() async {
-  //   final isDark = await localRepositoryInterface.isDarkMode();
-  //   if (isDark != null) {
-  //     Get.changeThemeMode(isDark ? ThemeMode.dark : ThemeMode.light);
-  //   } else {
-  //     Get.changeThemeMode(Get.isDarkMode ? ThemeMode.dark : ThemeMode.light);
-  //   }
-  //   ;
-  // }
+  void validateTheme() async {
+    final isDark = await localRepositoryInterface.isDarkMode();
+    if (isDark != null) {
+      Get.changeThemeMode(isDark ? ThemeMode.dark : ThemeMode.light);
+    } else {
+      Get.changeThemeMode(Get.isDarkMode ? ThemeMode.dark : ThemeMode.light);
+    }
+    ;
+  }
 
   void validateSession() async {
     await Future.delayed(const Duration(seconds: 3));
@@ -45,10 +43,8 @@ class SplashController extends GetxController {
       // Lo persisto
       await localRepositoryInterface.saveUser(user);
       Get.offNamed(DeliveryRoutes.home);
-      print('SplashBinding 1');
     } else {
       Get.offNamed(DeliveryRoutes.login);
-      print('SplashBinding 2');
     }
   }
 }

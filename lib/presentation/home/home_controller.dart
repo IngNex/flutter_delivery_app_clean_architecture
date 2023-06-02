@@ -2,7 +2,6 @@ import 'package:flutter_delivery_app_clean_architecture/domain/model/products_mo
 import 'package:flutter_delivery_app_clean_architecture/domain/model/user_modal.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/repository/api_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/domain/repository/local_storage_repository.dart';
-import 'package:flutter_delivery_app_clean_architecture/presentation/theme.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
