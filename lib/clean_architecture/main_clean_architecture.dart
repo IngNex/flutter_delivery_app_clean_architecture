@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/main_clean_architecture_getx.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/main_clean_architecture_provider.dart';
-import 'package:get/get.dart';
 
 class MainCleanArchitecture extends StatelessWidget {
   const MainCleanArchitecture({super.key});

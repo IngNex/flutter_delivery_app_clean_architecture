@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/main_clean_architecture.dart';
-import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/getx/main_binding.dart';
-import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/getx/routes/delivery_navigation.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/theme.dart';
-import 'package:get/get.dart';
 
 void main() {
   runApp(const MyApp());
