@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final result = await bloc.validateSession();
     if (result) {
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => HomeScreen()));
+          .push(MaterialPageRoute(builder: (_) => HomeScreen.init(context)));
     } else {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (_) => LoginScreen()));
