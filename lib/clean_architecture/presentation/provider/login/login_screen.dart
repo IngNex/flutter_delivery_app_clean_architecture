@@ -1,30 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/getx/login/login_controller.dart';
-import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/getx/routes/delivery_navigation.dart';
+import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/api_repository.dart';
+import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/local_storage_repository.dart';
+import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/home/home_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/theme.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/delivery_button.dart';
-import 'package:get/get.dart';
+import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/login/login_bloc.dart';
+import 'package:provider/provider.dart';
 
 const logoSize = 45.0;
 
-class LoginScreen extends GetWidget<LoginController> {
-  const LoginScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  LoginScreen._();
 
-  void login() async {
-    final result = await controller.login();
+  static Widget init(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => LoginBloc(
+        apiRepositoryInterface: context.read<ApiRepositoryInterface>(),
+        localRepositoryInterface: context.read<LocalRepositoryInterface>(),
+      ),
+      builder: (_, __) => LoginScreen._(),
+    );
+  }
 
-    print('result ${result}');
-
+  void login(BuildContext context) async {
+    final bloc = context.read<LoginBloc>();
+    final result = await bloc.login();
     if (result) {
-      Get.snackbar('Correct', 'Welcome Delivery!!!');
-      Get.offAllNamed(DeliveryRoutes.home);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => HomeScreen.init(context),
+        ),
+      );
     } else {
-      Get.snackbar('Error', 'Login incorrect');
+      //Get.snackbar('Error', 'Login incorrect');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Login Correct'),
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.watch<LoginBloc>();
     final size = MediaQuery.of(context).size;
     final width = size.width;
     final moreSize = 50.0;
@@ -111,7 +130,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                         ?.color),
                           ),
                           TextField(
-                            controller: controller.usernameTextController,
+                            controller: bloc.usernameTextController,
                             decoration: InputDecoration(
                               prefixIcon: Icon(
                                 Icons.person_outline,
@@ -135,7 +154,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                         ?.color),
                           ),
                           TextField(
-                            controller: controller.passwordTextController,
+                            controller: bloc.passwordTextController,
                             decoration: InputDecoration(
                               prefixIcon: Icon(
                                 Icons.person_outline,
@@ -153,27 +172,23 @@ class LoginScreen extends GetWidget<LoginController> {
               Padding(
                 padding: const EdgeInsets.all(25),
                 child: DeliveryButton(
-                  onTap: login,
+                  onTap: () => login(context),
                   text: 'Login',
                   padding: const EdgeInsets.all(15),
                 ),
               ),
             ],
           ),
-          Positioned.fill(child: Obx(
-            () {
-              if (controller.loginState.value == LoginState.loading) {
-                return Container(
-                  color: Colors.black26,
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              } else {
-                return const SizedBox.shrink();
-              }
-            },
-          )),
+          Positioned.fill(
+            child: (bloc.loginState == LoginState.loading)
+                ? Container(
+                    color: Colors.black26,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : const SizedBox.shrink(),
+          ),
         ],
       ),
     );

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/api_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/local_storage_repository.dart';
-import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/cart/cart_controller.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/cart/cart_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/home/products/products_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/home/profile/profile_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/theme.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/home/home_bloc.dart';
-import 'package:get/get.dart';
+
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -45,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                         bloc.updateIndexSelected(0);
                       }),
                     ),
-                Placeholder(),
+                const Placeholder(),
                 ProfileScreen.init(context),
               ],
             ),
@@ -143,7 +142,7 @@ class _DeliveryNavigationBar extends StatelessWidget {
               Material(
                 child: InkWell(
                   onTap: () => onIndexSelected(4),
-                  child: user?.image == null
+                  child: user.image.isEmpty
                       ? const SizedBox.shrink()
                       : CircleAvatar(
                           radius: 15,

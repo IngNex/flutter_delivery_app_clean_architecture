@@ -3,7 +3,6 @@ import 'package:flutter_delivery_app_clean_architecture/clean_architecture/data/
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/data/datasource/local_repository_impl.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/api_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/local_storage_repository.dart';
-import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/theme.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/main_bloc.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -40,9 +39,8 @@ class MainProvider extends StatelessWidget {
                     title: 'Flutter Demo',
                     debugShowCheckedModeBanner: false,
                     theme: bloc.currentTheme,
-                    // theme: lightTheme,
-                    // darkTheme: darkTheme,
-                    // themeMode: ThemeMode.system,
+                    //darkTheme: darkTheme,
+                    //themeMode: ThemeMode.system,
                     home: SplashScreen.init(newContext),
                   );
           });

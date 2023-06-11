@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/exception/auth_exception.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/api_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/local_storage_repository.dart';
@@ -10,25 +9,26 @@ enum LoginState {
   initial,
 }
 
-class LoginController extends GetxController {
+class LoginBloc extends ChangeNotifier {
   final LocalRepositoryInterface localRepositoryInterface;
   final ApiRepositoryInterface apiRepositoryInterface;
 
-  LoginController({
+  LoginBloc({
     required this.localRepositoryInterface,
     required this.apiRepositoryInterface,
   });
 
   final usernameTextController = TextEditingController();
   final passwordTextController = TextEditingController();
-  var loginState = LoginState.initial.obs;
+  var loginState = LoginState.initial;
 
   Future<bool> login() async {
     final username = usernameTextController.text;
     final password = passwordTextController.text;
 
     try {
-      loginState(LoginState.loading);
+      loginState = LoginState.loading;
+      notifyListeners();
       final loginResponse = await apiRepositoryInterface.login(
         LoginRequest(username, password),
       );
@@ -36,9 +36,13 @@ class LoginController extends GetxController {
       await localRepositoryInterface.saveToken(loginResponse.token);
       await localRepositoryInterface.saveUser(loginResponse.user);
 
+      loginState = LoginState.initial;
+      notifyListeners();
+
       return true;
     } on AuthException catch (_) {
-      loginState(LoginState.initial);
+      loginState = LoginState.initial;
+      notifyListeners();
       return false;
     }
   }

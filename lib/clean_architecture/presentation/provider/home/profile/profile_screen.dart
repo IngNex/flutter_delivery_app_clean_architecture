@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/api_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/local_storage_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/theme.dart';
+import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/main_bloc.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/splash/splash_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/home/home_bloc.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/home/profile/profile_bloc.dart';
@@ -32,6 +33,8 @@ class ProfileScreen extends StatelessWidget {
     final profileBloc = Provider.of<ProfileBloc>(context, listen: false);
     profileBloc.updateTheme(isDark);
     //TODO: update global theme
+    final mainBloc = Provider.of<MainBloc>(context, listen: false);
+    mainBloc.loadTheme();
   }
 
   @override
