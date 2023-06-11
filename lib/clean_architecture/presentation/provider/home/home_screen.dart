@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
             child: IndexedStack(
               index: bloc.indexSelected,
               children: [
-                Placeholder() ?? ProductsScreen(),
+                ProductsScreen.init(context),
                 Placeholder(),
                 Placeholder() ??
                     CartScreen(

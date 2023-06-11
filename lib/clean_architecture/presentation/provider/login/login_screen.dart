@@ -35,7 +35,7 @@ class LoginScreen extends StatelessWidget {
       //Get.snackbar('Error', 'Login incorrect');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Login Correct'),
+          content: Text('Login InCorrect'),
         ),
       );
     }

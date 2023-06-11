@@ -24,16 +24,20 @@ class ProfileScreen extends StatelessWidget {
   Future<void> logout(BuildContext context) async {
     final profileBloc = Provider.of<ProfileBloc>(context, listen: false);
     await profileBloc.logOut();
+
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (_) => SplashScreen.init(context)),
         (route) => false);
+    //Destroy theme
+    final mainBloc = context.read<MainBloc>();
+    mainBloc.loadTheme();
   }
 
   void onThemeUpdated(BuildContext context, bool isDark) {
     final profileBloc = Provider.of<ProfileBloc>(context, listen: false);
     profileBloc.updateTheme(isDark);
     //TODO: update global theme
-    final mainBloc = Provider.of<MainBloc>(context, listen: false);
+    final mainBloc = context.read<MainBloc>();
     mainBloc.loadTheme();
   }
 
@@ -135,8 +139,8 @@ class ProfileScreen extends StatelessWidget {
                                     Spacer(),
                                     Switch(
                                       value: profileBloc.isDark,
-                                      onChanged: (value) =>
-                                          onThemeUpdated(context, value),
+                                      onChanged: (val) =>
+                                          onThemeUpdated(context, val),
                                       activeColor: DeliveryColors.green,
                                       inactiveThumbColor: DeliveryColors.purple,
                                     ),

@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/model/products_model.dart';
-import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/getx/cart/cart_controller.dart';
-import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/getx/home/home_controller.dart';
+import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/api_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/theme.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/delivery_button.dart';
-import 'package:get/get.dart';
+import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/home/products/products_bloc.dart';
+
+import 'package:provider/provider.dart';
 
 class ProductsScreen extends StatelessWidget {
-  ProductsScreen({super.key});
-  final controller = Get.find<HomeController>();
-  final cartController = Get.find<CartController>();
+  ProductsScreen._();
+
+  static Widget init(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => ProductsBloc(
+        apiRepositoryInterface: context.read<ApiRepositoryInterface>(),
+      )..loadProducts(),
+      builder: (_, __) => ProductsScreen._(),
+    );
+  }
+
+  // ProductsScreen({super.key});
+  // final controller = Get.find<HomeController>();
+  // final cartController = Get.find<CartController>();
 
   // final controller = Get.put<ProductsController>(
   //   ProductsController(
@@ -19,6 +31,7 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productsBloc = context.watch<ProductsBloc>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -26,30 +39,28 @@ class ProductsScreen extends StatelessWidget {
         ),
         //titleTextStyle: Theme.of(context).appBarTheme.textTheme?.headline6,
       ),
-      body: Obx(
-        () => controller.productList.isNotEmpty
-            ? GridView.builder(
-                padding: EdgeInsets.all(20),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 2 / 3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10),
-                itemCount: controller.productList.length,
-                itemBuilder: (context, index) {
-                  final product = controller.productList[index];
-                  return _ItemProducts(
-                    product: product,
-                    onTap: () {
-                      cartController.add(product);
-                    },
-                  );
-                },
-              )
-            : Center(
-                child: CircularProgressIndicator(),
-              ),
-      ),
+      body: productsBloc.productList.isNotEmpty
+          ? GridView.builder(
+              padding: EdgeInsets.all(20),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 2 / 3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10),
+              itemCount: productsBloc.productList.length,
+              itemBuilder: (context, index) {
+                final product = productsBloc.productList[index];
+                return _ItemProducts(
+                  product: product,
+                  onTap: () {
+                    //cartController.add(product);
+                  },
+                );
+              },
+            )
+          : Center(
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 }

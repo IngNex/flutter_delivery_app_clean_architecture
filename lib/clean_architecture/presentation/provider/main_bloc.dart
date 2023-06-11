@@ -9,7 +9,7 @@ class MainBloc extends ChangeNotifier {
     required this.localRepositoryInterface,
   });
 
-  late ThemeData currentTheme = lightTheme;
+  ThemeData currentTheme = lightTheme;
 
   void loadTheme() async {
     final isDark = await localRepositoryInterface.isDarkMode() ?? false;

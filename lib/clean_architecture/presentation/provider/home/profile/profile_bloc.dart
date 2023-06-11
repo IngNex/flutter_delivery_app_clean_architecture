@@ -11,7 +11,7 @@ class ProfileBloc extends ChangeNotifier {
     required this.apiRepositoryInterface,
   });
 
-  late bool isDark = false;
+  bool isDark = false;
 
   void loadTheme() async {
     isDark = await localRepositoryInterface.isDarkMode() ?? false;

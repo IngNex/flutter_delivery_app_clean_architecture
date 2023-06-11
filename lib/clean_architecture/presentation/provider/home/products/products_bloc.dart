@@ -1,23 +1,18 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/model/products_model.dart';
-import 'package:get/get.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/api_repository.dart';
 
-class ProductsController extends GetxController {
+class ProductsBloc extends ChangeNotifier {
   final ApiRepositoryInterface apiRepositoryInterface;
-  ProductsController({
+  ProductsBloc({
     required this.apiRepositoryInterface,
   });
 
-  RxList<Products> productList = <Products>[].obs;
-
-  @override
-  void onInit() {
-    loadProducts();
-    super.onInit();
-  }
+  List<Products> productList = <Products>[];
 
   void loadProducts() async {
     final result = await apiRepositoryInterface.getProducts();
-    productList.value = result;
+    productList = result;
+    notifyListeners();
   }
 }

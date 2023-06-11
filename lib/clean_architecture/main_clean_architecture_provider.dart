@@ -22,17 +22,17 @@ class MainProvider extends StatelessWidget {
           create: (_) => LocalRepositoryImpl(),
         ),
         ChangeNotifierProvider(
-          create: ((context) {
+          create: (context) {
             return MainBloc(
               localRepositoryInterface:
                   context.read<LocalRepositoryInterface>(),
             )..loadTheme();
-          }),
+          },
         ),
       ],
       child: Builder(
         builder: (newContext) {
-          return Consumer<MainBloc>(builder: (context, bloc, child) {
+          return Consumer<MainBloc>(builder: (context, bloc, _) {
             return bloc.currentTheme == null
                 ? const SizedBox.shrink()
                 : MaterialApp(
