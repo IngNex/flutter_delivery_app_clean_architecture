@@ -1,22 +1,21 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/model/product_card_model.dart';
-import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/getx/cart/cart_controller.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/theme.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/delivery_button.dart';
+import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/cart/cart_bloc.dart';
+import 'package:provider/provider.dart';
 
-class CartScreen extends GetWidget<CartController> {
+class CartScreen extends StatelessWidget {
+  final VoidCallback onShopping;
+
   CartScreen({
     Key? key,
     required this.onShopping,
-  }) : super(key: key);
-
-  final VoidCallback onShopping;
+  });
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.watch<CartBloc>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -24,20 +23,22 @@ class CartScreen extends GetWidget<CartController> {
         ),
         //titleTextStyle: Theme.of(context).appBarTheme.textTheme?.headline6,
       ),
-      body: Obx(() => controller.totalItems.value == 0
+      body: bloc.totalItems == 0
           ? _EmptyCart(onShopping: onShopping)
-          : _FullCart()),
+          : _FullCart(),
     );
   }
 }
 
-class _FullCart extends GetWidget<CartController> {
+class _FullCart extends StatelessWidget {
   const _FullCart({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.watch<CartBloc>();
+    final total = bloc.totalPrice.toStringAsFixed(2);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -45,26 +46,24 @@ class _FullCart extends GetWidget<CartController> {
           flex: 3,
           child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Obx(
-                () => ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: controller.cartList.length,
-                  itemExtent: 230,
-                  itemBuilder: ((context, index) {
-                    final productCart = controller.cartList[index];
-                    return _ShoppingCartProducts(
-                        productCart: productCart,
-                        onDelete: () {
-                          controller.deleteProduct(productCart);
-                        },
-                        onIncrement: () {
-                          controller.increment(productCart);
-                        },
-                        onDecrement: () {
-                          controller.decrement(productCart);
-                        });
-                  }),
-                ),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: bloc.cartList.length,
+                itemExtent: 230,
+                itemBuilder: ((context, index) {
+                  final productCart = bloc.cartList[index];
+                  return _ShoppingCartProducts(
+                      productCart: productCart,
+                      onDelete: () {
+                        bloc.deleteProduct(productCart);
+                      },
+                      onIncrement: () {
+                        bloc.increment(productCart);
+                      },
+                      onDecrement: () {
+                        bloc.decrement(productCart);
+                      });
+                }),
               )),
         ),
         Expanded(
@@ -146,18 +145,13 @@ class _FullCart extends GetWidget<CartController> {
                                   color:
                                       Theme.of(context).colorScheme.secondary),
                             ),
-                            Obx(() {
-                              final total = controller.totalPrice.value
-                                  .toStringAsFixed(2);
-                              return Text(
-                                '\$${total} USD',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary),
-                              );
-                            })
+                            Text(
+                              '\$${total} USD',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                            )
                           ],
                         ),
                       ],

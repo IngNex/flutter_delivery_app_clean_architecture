@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/api_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/local_storage_repository.dart';
+import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/cart/cart_bloc.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/cart/cart_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/home/products/products_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/home/profile/profile_screen.dart';
@@ -13,12 +14,16 @@ class HomeScreen extends StatelessWidget {
   HomeScreen._();
 
   static Widget init(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => HomeBloc(
-        apiRepositoryInterface: context.read<ApiRepositoryInterface>(),
-        localRepositoryInterface: context.read<LocalRepositoryInterface>(),
-      )..loadUser(),
-      builder: (_, __) => HomeScreen._(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => HomeBloc(
+            apiRepositoryInterface: context.read<ApiRepositoryInterface>(),
+            localRepositoryInterface: context.read<LocalRepositoryInterface>(),
+          )..loadUser(),
+          builder: (_, __) => HomeScreen._(),
+        ),
+      ],
     );
   }
 
@@ -35,15 +40,11 @@ class HomeScreen extends StatelessWidget {
               children: [
                 ProductsScreen.init(context),
                 Placeholder(),
-                Placeholder() ??
-                    CartScreen(
-                      onShopping: (() {
-                        /*setState(() {
-                      currentIndex = 0;
-                    });*/
-                        bloc.updateIndexSelected(0);
-                      }),
-                    ),
+                CartScreen(
+                  onShopping: (() {
+                    bloc.updateIndexSelected(0);
+                  }),
+                ),
                 const Placeholder(),
                 ProfileScreen.init(context),
               ],
@@ -70,6 +71,7 @@ class _DeliveryNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<HomeBloc>(context);
+    final cartBloc = Provider.of<CartBloc>(context);
     final user = bloc.user;
     return Padding(
       padding: EdgeInsets.all(20),
@@ -115,18 +117,16 @@ class _DeliveryNavigationBar extends StatelessWidget {
                             : DeliveryColors.white,
                       ),
                     ),
-                    // Positioned(
-                    //   right: 0,
-                    //   child: Obx(
-                    //     () => cart.totalItems.value == 0
-                    //         ? const SizedBox.shrink()
-                    //         : CircleAvatar(
-                    //             radius: 10,
-                    //             backgroundColor: Colors.pinkAccent,
-                    //             child: Text(cartController.totalItems.value.toString()),
-                    //           ),
-                    //   ),
-                    // ),
+                    Positioned(
+                      right: 0,
+                      child: cartBloc.totalItems == 0
+                          ? const SizedBox.shrink()
+                          : CircleAvatar(
+                              radius: 10,
+                              backgroundColor: Colors.pinkAccent,
+                              child: Text(cartBloc.totalItems.toString()),
+                            ),
+                    ),
                   ],
                 ),
               ),

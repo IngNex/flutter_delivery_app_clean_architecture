@@ -3,6 +3,7 @@ import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domai
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/api_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/theme.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/delivery_button.dart';
+import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/cart/cart_bloc.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/home/products/products_bloc.dart';
 
 import 'package:provider/provider.dart';
@@ -19,19 +20,10 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  // ProductsScreen({super.key});
-  // final controller = Get.find<HomeController>();
-  // final cartController = Get.find<CartController>();
-
-  // final controller = Get.put<ProductsController>(
-  //   ProductsController(
-  //     apiRepositoryInterface: Get.find(),
-  //   ),
-  // );
-
   @override
   Widget build(BuildContext context) {
     final productsBloc = context.watch<ProductsBloc>();
+    final cartBloc = context.watch<CartBloc>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -53,7 +45,7 @@ class ProductsScreen extends StatelessWidget {
                 return _ItemProducts(
                   product: product,
                   onTap: () {
-                    //cartController.add(product);
+                    cartBloc.add(product);
                   },
                 );
               },

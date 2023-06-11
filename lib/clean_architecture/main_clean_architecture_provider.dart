@@ -3,6 +3,7 @@ import 'package:flutter_delivery_app_clean_architecture/clean_architecture/data/
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/data/datasource/local_repository_impl.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/api_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/local_storage_repository.dart';
+import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/cart/cart_bloc.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/main_bloc.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,9 @@ class MainProvider extends StatelessWidget {
                   context.read<LocalRepositoryInterface>(),
             )..loadTheme();
           },
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CartBloc(),
         ),
       ],
       child: Builder(
