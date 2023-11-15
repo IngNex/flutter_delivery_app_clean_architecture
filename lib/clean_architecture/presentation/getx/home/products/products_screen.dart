@@ -80,7 +80,7 @@ class _ItemProducts extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Image.asset(
-                      product.image,
+                      product.image.toString(),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -90,9 +90,9 @@ class _ItemProducts extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  Text(product.name),
+                  Text(product.name.toString()),
                   const SizedBox(height: 10),
-                  Text(product.description,
+                  Text(product.description.toString(),
                       style: Theme.of(context)
                           .textTheme
                           .overline

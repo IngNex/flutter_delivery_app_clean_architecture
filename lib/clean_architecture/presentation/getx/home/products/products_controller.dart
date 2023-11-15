@@ -17,7 +17,7 @@ class ProductsController extends GetxController {
   }
 
   void loadProducts() async {
-    final result = await apiRepositoryInterface.getProducts();
+    final result = await apiRepositoryInterface.getProducts('token');
     productList.value = result;
   }
 }

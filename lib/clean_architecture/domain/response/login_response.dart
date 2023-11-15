@@ -2,7 +2,7 @@ import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domai
 
 class LoginResponse {
   final String token;
-  final User user;
+  final People user;
   const LoginResponse({
     required this.token,
     required this.user,

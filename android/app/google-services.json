@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "674431584274",
+    "project_id": "prueba-api-7bcb0",
+    "storage_bucket": "prueba-api-7bcb0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674431584274:android:f60a6884202bf7ad01b0cb",
+        "android_client_info": {
+          "package_name": "com.example.app_tesis"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv3hWZ-3X6LjUsBSTYqgEOyWiBOG3bb60"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674431584274:android:83f94404ba976b0001b0cb",
+        "android_client_info": {
+          "package_name": "com.example.flutter_delivery_app_clean_architecture"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv3hWZ-3X6LjUsBSTYqgEOyWiBOG3bb60"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

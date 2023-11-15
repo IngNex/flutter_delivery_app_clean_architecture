@@ -4,8 +4,8 @@ import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domai
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/response/login_response.dart';
 
 abstract class ApiRepositoryInterface {
-  Future<User> getUserFromToken(String token);
+  Future<People> getUserFromToken(String token);
   Future<LoginResponse> login(LoginRequest login);
   Future<void> logout(String token);
-  Future<List<Products>> getProducts();
+  Future<List<Products>> getProducts(String token);
 }

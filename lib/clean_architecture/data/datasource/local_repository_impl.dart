@@ -33,13 +33,13 @@ class LocalRepositoryImpl extends LocalRepositoryInterface {
   }
 
   @override
-  Future<User> getUser() async {
+  Future<People> getUser() async {
     final SharedPreferences sharedPreference = await _sharedPreference;
     final username = sharedPreference.getString(_pref_username);
     final name = sharedPreference.getString(_pref_name);
     final image = sharedPreference.getString(_pref_image);
 
-    final user = User(
+    final user = People(
         name: name.toString(),
         username: username.toString(),
         image: image.toString());
@@ -47,7 +47,7 @@ class LocalRepositoryImpl extends LocalRepositoryInterface {
   }
 
   @override
-  Future<User> saveUser(User user) async {
+  Future<People> saveUser(People user) async {
     final SharedPreferences sharedPreference = await _sharedPreference;
     sharedPreference.setString(_pref_username, user.username);
     sharedPreference.setString(_pref_name, user.name);

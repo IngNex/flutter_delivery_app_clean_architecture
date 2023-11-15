@@ -13,7 +13,7 @@ class HomeBloc extends ChangeNotifier {
   });
 
   int indexSelected = 0;
-  User user = User.empty();
+  People user = People.empty();
 
   void loadUser() async {
     user = await localRepositoryInterface.getUser();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/model/products_model.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/api_repository.dart';
+import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/local_storage_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/theme.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/delivery_button.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/cart/cart_bloc.dart';
@@ -15,6 +16,7 @@ class ProductsScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => ProductsBloc(
         apiRepositoryInterface: context.read<ApiRepositoryInterface>(),
+        localRepositoryInterface: context.read<LocalRepositoryInterface>(),
       )..loadProducts(),
       builder: (_, __) => ProductsScreen._(),
     );
@@ -82,8 +84,8 @@ class _ItemProducts extends StatelessWidget {
                 child: ClipOval(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Image.asset(
-                      product.image,
+                    child: Image.network(
+                      product.image.toString(),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -93,14 +95,14 @@ class _ItemProducts extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  Text(product.name),
+                  Text(product.name.toString()),
                   const SizedBox(height: 10),
-                  Text(product.description,
+                  Text(product.description.toString(),
                       style: Theme.of(context)
                           .textTheme
                           .overline
                           ?.copyWith(color: DeliveryColors.lightGrey),
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis),
                   const SizedBox(
                     height: 10,

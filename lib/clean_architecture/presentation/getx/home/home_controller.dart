@@ -12,7 +12,7 @@ class HomeController extends GetxController {
   final LocalRepositoryInterface localRepositoryInterface;
   final ApiRepositoryInterface apiRepositoryInterface;
 
-  Rx<User> user = User.empty().obs;
+  Rx<People> user = People.empty().obs;
   RxInt indexSelected = 0.obs;
   Rx<bool> darkTheme = false.obs;
 
@@ -58,7 +58,7 @@ class HomeController extends GetxController {
 
   /*===================  Product Controller ====================*/
   void loadProducts() async {
-    final result = await apiRepositoryInterface.getProducts();
+    final result = await apiRepositoryInterface.getProducts('token');
     productList.value = result;
   }
 }

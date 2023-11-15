@@ -1,13 +1,13 @@
-class User {
+class People {
   final String name;
   final String username;
   final String image;
-  User({
+  People({
     required this.name,
     required this.username,
     required this.image,
   });
 
-  factory User.empty() =>
-      User(name: '', username: '', image: 'assets/delivery/sad.png');
+  factory People.empty() =>
+      People(name: '', username: '', image: 'assets/delivery/sad.png');
 }

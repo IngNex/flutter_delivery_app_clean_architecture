@@ -48,7 +48,7 @@ class CartController extends GetxController {
     final totalCost = temp.fold(
         0.0,
         (previousValue, element) =>
-            (element.quantity * element.product.price) + previousValue);
+            (element.quantity * double.parse(element.product.price.toString())) + previousValue);
     totalPrice(totalCost);
   }
 

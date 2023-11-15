@@ -209,8 +209,8 @@ class _ShoppingCartProducts extends StatelessWidget {
                       child: ClipOval(
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: Image.asset(
-                            product.image,
+                          child: Image.network(
+                            product.image.toString(),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -224,15 +224,15 @@ class _ShoppingCartProducts extends StatelessWidget {
                     flex: 3,
                     child: Column(
                       children: [
-                        Text(product.name),
+                        Text(product.name.toString(),maxLines: 1,),
                         const SizedBox(height: 10),
-                        Text(product.description,
+                        Text(product.description.toString(),
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
                                 .overline
                                 ?.copyWith(color: DeliveryColors.lightGrey),
-                            maxLines: 2,
+                            maxLines: 1,
                             overflow: TextOverflow.ellipsis),
                         const SizedBox(height: 20),
                         Padding(
