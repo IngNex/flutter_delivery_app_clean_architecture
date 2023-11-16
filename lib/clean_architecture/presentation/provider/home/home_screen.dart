@@ -3,6 +3,7 @@ import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domai
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/local_storage_repository.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/cart/cart_bloc.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/cart/cart_screen.dart';
+import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/home/category/category_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/home/products/products_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/provider/home/profile/profile_screen.dart';
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/presentation/common/theme.dart';
@@ -39,7 +40,7 @@ class HomeScreen extends StatelessWidget {
               index: bloc.indexSelected,
               children: [
                 ProductsScreen.init(context),
-                Placeholder(),
+                CategoryScreen.init(context),
                 CartScreen(
                   onShopping: (() {
                     bloc.updateIndexSelected(0);
