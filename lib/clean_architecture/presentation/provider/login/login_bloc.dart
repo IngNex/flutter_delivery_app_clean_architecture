@@ -34,6 +34,7 @@ class LoginBloc extends ChangeNotifier {
       );
 
       await localRepositoryInterface.saveToken(loginResponse.token);
+      await localRepositoryInterface.saveIdUser(loginResponse.id);
       await localRepositoryInterface.saveUser(loginResponse.user);
 
       loginState = LoginState.initial;

@@ -3,6 +3,7 @@ import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domai
 import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domain/repository/local_storage_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+const _pref_id = 'ID';
 const _pref_token = 'TOKEN';
 const _pref_username = 'USERNAME';
 const _pref_name = 'NAME';
@@ -66,5 +67,19 @@ class LocalRepositoryImpl extends LocalRepositoryInterface {
   Future<void> saveDarkMode(bool darkMode) async {
     final SharedPreferences sharedPreference = await _sharedPreference;
     sharedPreference.setBool(_pref_dark_theme, darkMode);
+  }
+  
+  @override
+  Future<String?> getIdUser() async {
+    final SharedPreferences sharedPreference = await _sharedPreference;
+    return sharedPreference.getString(_pref_id);
+  }
+  
+  @override
+  Future<String?> saveIdUser(String id) async {
+    final SharedPreferences sharedPreference = await _sharedPreference;
+    sharedPreference.setString(_pref_id, id);
+
+    return id;
   }
 }

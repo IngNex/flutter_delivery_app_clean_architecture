@@ -3,6 +3,8 @@ import 'package:flutter_delivery_app_clean_architecture/clean_architecture/domai
 abstract class LocalRepositoryInterface {
   Future<String?> getToken();
   Future<String?> saveToken(String token);
+  Future<String?> getIdUser();
+  Future<String?> saveIdUser(String id);
   Future<void> clearAllData();
   Future<People> saveUser(People user);
   Future<People> getUser();

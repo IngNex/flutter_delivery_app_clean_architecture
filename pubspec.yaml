@@ -36,6 +36,7 @@ dependencies:
   firebase_storage: ^11.2.4
   flutter:
     sdk: flutter
+  flutter_secure_storage: ^9.0.0
   get: ^4.6.5
   google_fonts: any
   http: ^1.1.0
@@ -43,12 +44,6 @@ dependencies:
   shared_preferences: ^2.1.1
 
 dev_dependencies:
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter

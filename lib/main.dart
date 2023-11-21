@@ -29,6 +29,9 @@ void main() async {
     await Firebase.initializeApp();
   }
   runApp(MyApp());
+  // await AuthStore.read().then((value) {
+  //   runApp(MyApp(user: value));
+  // });
 }
 
 class MyApp extends StatelessWidget {

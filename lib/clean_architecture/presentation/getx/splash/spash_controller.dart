@@ -39,7 +39,7 @@ class SplashController extends GetxController {
     await Future.delayed(const Duration(seconds: 3));
     final token = await localRepositoryInterface.getToken();
     if (token != null) {
-      final user = await apiRepositoryInterface.getUserFromToken(token);
+      final user = await apiRepositoryInterface.getUserFromToken(token, 'id');
       // Lo persisto
       await localRepositoryInterface.saveUser(user);
       Get.offNamed(DeliveryRoutes.home);
