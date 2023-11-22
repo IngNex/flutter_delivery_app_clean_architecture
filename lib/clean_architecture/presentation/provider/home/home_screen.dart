@@ -147,7 +147,7 @@ class _DeliveryNavigationBar extends StatelessWidget {
                       ? const SizedBox.shrink()
                       : CircleAvatar(
                           radius: 15,
-                          backgroundImage: AssetImage(user.image),
+                          backgroundImage: NetworkImage(user.image),
                         ),
                 ),
               )

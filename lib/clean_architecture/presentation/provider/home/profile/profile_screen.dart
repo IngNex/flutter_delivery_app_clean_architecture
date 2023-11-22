@@ -72,7 +72,7 @@ class ProfileScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(4.0),
                           child: CircleAvatar(
                             radius: 60,
-                            child: Image.asset(user.image),
+                            child: Image.network(user.image),
                           ),
                         ),
                       ),

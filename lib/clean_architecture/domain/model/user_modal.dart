@@ -8,6 +8,9 @@ class People {
     required this.image,
   });
 
-  factory People.empty() =>
-      People(name: '', username: '', image: 'assets/delivery/sad.png');
+  factory People.empty() => People(
+      name: '',
+      username: '',
+      image:
+          'https://firebasestorage.googleapis.com/v0/b/prueba-api-7bcb0.appspot.com/o/users%2Fuser.png?alt=media&token=07fb8586-db1d-47c5-aee0-0a2fe636e2f5');
 }

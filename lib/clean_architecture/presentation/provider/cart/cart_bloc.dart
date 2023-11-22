@@ -50,6 +50,8 @@ class CartBloc extends ChangeNotifier {
         (previousValue, element) =>
             (element.quantity * double.parse(element.product.price.toString())) + previousValue);
     totalPrice = totalCost;
+
+    temp.forEach((element) { print("${element.product.name} ${element.quantity} ${double.parse(element.product.price.toString())*element.quantity}");});
     notifyListeners();
   }
 
